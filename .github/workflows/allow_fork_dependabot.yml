@@ -11,6 +11,9 @@ jobs:
     name: Detect Author
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
       - name: Only Allow Members
         uses: ./.github/actions/only-allow-members
 
