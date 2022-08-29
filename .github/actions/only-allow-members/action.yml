@@ -4,6 +4,12 @@ description: Exit the workflow if entity triggering flow isn't a repo member or 
 runs:
   using: composite
   steps:
+    - id: debug-actor-author-association
+      shell: bash
+      run: |
+        echo "Actor = ${{ github.actor }}"
+        echo "Author Association = ${{ github.event.pull_request.author_association }}"
+
     - id: exit-if-not-member-or-dependabot
       shell: bash
       if: github.event.pull_request.author_association != 'MEMBER' && github.event.pull_request.author_association != 'OWNER' && github.actor != 'dependabot[bot]'
