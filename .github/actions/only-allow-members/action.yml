@@ -1,0 +1,12 @@
+name: Only Allow Members
+description: Exit the workflow if entity triggering flow isn't a repo member or dependabot
+
+runs:
+  using: composite
+  steps:
+    - id: exit-if-not-member-or-dependabot
+      shell: bash
+      if: github.event.pull_request.author_association != 'MEMBER' && github.event.pull_request.author_association != 'OWNER' && github.actor != 'dependabot[bot]'
+      run: |
+        echo "Entity ${{ github.actor }} is not authorized to run actions on this repo"
+        exit 1
