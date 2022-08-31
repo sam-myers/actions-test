@@ -1,0 +1,16 @@
+name: Test Command Failure
+on:
+  push:
+
+jobs:
+  print:
+    name: Print event
+    runs-on: ubuntu-latest
+    steps:
+      - name: Test
+        run: |
+          mkdir foo
+          pushd foo
+          false
+          (exit 255)
+          popd
