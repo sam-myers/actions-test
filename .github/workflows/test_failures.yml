@@ -12,6 +12,6 @@ jobs:
           mkdir foo
           pushd foo
           echo 1
-          (exit 255)
+          (exit 255) >> foo.txt
           echo 2
           popd
