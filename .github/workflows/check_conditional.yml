@@ -1,0 +1,32 @@
+name: Check Conditional Logic
+on:
+  pull_request:
+    types:
+      - opened
+      - reopened
+      - synchronize
+
+jobs:
+  pass:
+    name: Always pass
+    runs-on: ubuntu-latest
+    steps:
+      - name: Echo true
+        run: echo "true"
+
+  check:
+    name: Check logic
+    runs-on: ubuntu-latest
+    needs:
+      - pass
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - uses: technote-space/get-diff-action@v6
+        id: diff
+
+      - name: Is true
+        if: ${{ needs.pass.result == 'success' && needs.diff.outputs.diff }}
+        run: echo "Condition is true!"
