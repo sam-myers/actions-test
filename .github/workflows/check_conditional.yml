@@ -1,0 +1,16 @@
+name: Check Conditional Logic
+on:
+  pull_request:
+    types:
+      - opened
+      - reopened
+      - synchronize
+
+jobs:
+  check:
+    name: Check logic
+    runs-on: ubuntu-latest
+    steps:
+      - name: Is true
+        if: true && 'something/something.sh' 'foo/bar.sh'
+        run: echo "Condition is true!"
